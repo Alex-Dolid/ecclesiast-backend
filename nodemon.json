@@ -1,0 +1,18 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": false,
+  "watch": [
+    "./src",
+    "./package.json",
+    "./swagger"
+  ],
+  "env": {
+    "NODE_ENV": "dev"
+  },
+  "exec": "ts-node -r dotenv/config -r @babel/register ./src/index.ts",
+  "ext": "ts,json"
+}
