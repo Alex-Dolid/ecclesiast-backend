@@ -12,7 +12,6 @@ export const getById = async (req: Request, res: Response, next: NextFunction): 
 
   try {
     const { _id } = req.params;
-    const { q } = req.query;
     const controller = new BiblesController();
     const data = await controller.getById(_id);
 

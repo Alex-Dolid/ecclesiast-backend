@@ -1,15 +1,14 @@
 // Controllers
-import { BiblesModel, IBiblesModel } from "./bibles.model";
+import { BiblesModel, IBiblesModel, BiblesQueryParamsForGetAllFuncType } from "./bibles.model";
 // Types
 import { BibleType } from "./bibles.odm";
 
 interface IBiblesController {
   create: (payload: BibleType) => Promise<BibleType>;
-  getAll: () => Promise<BibleType[]>;
+  getAll: (queryParams: BiblesQueryParamsForGetAllFuncType) => Promise<BibleType[]>;
   getById: (_id: string) => Promise<BibleType>;
   updateById: (_id: string, payload: Partial<BibleType>) => Promise<BibleType>;
   removeById: (_id: string) => Promise<BibleType>;
-  getBiblesFragments: (q: string) => Promise<void>
 }
 
 type BiblesControllerModelsType = {
@@ -29,8 +28,8 @@ export class BiblesController implements IBiblesController {
     return await this.models.bibles.create(payload);
   }
 
-  async getAll(): Promise<BibleType[]> {
-    return await this.models.bibles.getAll();
+  async getAll(queryParams: BiblesQueryParamsForGetAllFuncType): Promise<BibleType[]> {
+    return await this.models.bibles.getAll(queryParams);
   }
 
   async getById(_id: string): Promise<BibleType> {
@@ -43,9 +42,5 @@ export class BiblesController implements IBiblesController {
 
   async removeById(_id: string): Promise<BibleType> {
     return await this.models.bibles.removeById(_id);
-  }
-
-  async getBiblesFragments(q: string): Promise<void> {
-    // TODO
   }
 }

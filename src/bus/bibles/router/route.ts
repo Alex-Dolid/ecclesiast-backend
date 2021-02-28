@@ -11,8 +11,9 @@ export const get = async (req: Request, res: Response, next: NextFunction): Prom
   debug(`${ req.method } - ${ req.originalUrl }`);
 
   try {
+    const query = { ...req.query };
     const controller = new BiblesController();
-    const data = await controller.getAll();
+    const data = await controller.getAll(query);
 
     res.status(200).json(data);
   } catch (error) {

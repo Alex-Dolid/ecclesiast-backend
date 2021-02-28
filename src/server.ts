@@ -6,7 +6,7 @@ import * as cors from "cors";
 // Instruments
 import { errorLogger, logger, NotFoundError, notFoundLogger, validationLogger } from "./utils";
 // Routes
-import { locales, bibles } from "./routers";
+import { locales, bibles, biblesBooks, biblesChapters, biblesVerses } from "./routers";
 // Types
 import { IErrorHandler } from "./types";
 
@@ -32,6 +32,9 @@ if (process.env.NODE_ENV === "dev") {
 // Routers
 app.use("/locales", locales);
 app.use("/bibles", bibles);
+app.use("/bibles-books", biblesBooks);
+app.use("/bibles-chapters", biblesChapters);
+app.use("/bibles-verses", biblesVerses);
 
 app.use("*", (req, res, next) => {
   const error = new NotFoundError(

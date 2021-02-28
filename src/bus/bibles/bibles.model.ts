@@ -3,9 +3,13 @@ import { BiblesOdm, BibleType } from "./bibles.odm";
 // Utils
 import { NotFoundError, ServerError } from "../../utils";
 
+export type BiblesQueryParamsForGetAllFuncType = {
+  select?: string
+}
+
 export interface IBiblesModel {
   create: (payload: BibleType) => Promise<BibleType>;
-  getAll: () => Promise<BibleType[]>;
+  getAll: (queryParams: BiblesQueryParamsForGetAllFuncType) => Promise<BibleType[]>;
   getById: (_id: string) => Promise<BibleType>;
   updateById: (_id: string, payload: Partial<BibleType>) => Promise<BibleType>;
   removeById: (_id: string) => Promise<BibleType>;
@@ -20,13 +24,21 @@ export class BiblesModel implements IBiblesModel {
     }
   }
 
-  async getAll(): Promise<BibleType[]> {
+  async getAll(queryParams: BiblesQueryParamsForGetAllFuncType): Promise<BibleType[]> {
     try {
       return await BiblesOdm
         .find()
         .sort("-created")
-        .select("-__v -created -modified")
+        .select(queryParams.select || "-__v -created -modified")
         .populate("locale", "-created -modified -__v")
+        .populate({
+          path: "verses",
+          select: "-created -modified -__v",
+          populate: {
+            path: "locale chapter book",
+            select: "-created -modified -__v"
+          }
+        })
         .lean();
     } catch (error) {
       throw new ServerError(error.message);

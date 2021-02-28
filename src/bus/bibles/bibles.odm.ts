@@ -39,10 +39,12 @@ const BibleSchema: Schema = new mongoose.Schema(
     src: {
       type: String
     },
-    verses: {
-      type: Schema.Types.ObjectId,
-      ref: BiblesVersesOdm
-    },
+    verses: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: BiblesVersesOdm
+      }
+    ],
     locale: {
       type: Schema.Types.ObjectId,
       ref: LocalesOdm,

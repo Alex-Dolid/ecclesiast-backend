@@ -17,4 +17,4 @@ router.get("/:_id", [ authenticate, limiter(10, 60 * 1000) ], getById);
 router.put("/:_id", [ authenticate, limiter(10, 60 * 1000), validator(commonSchema) ], updateById);
 router.delete("/:_id", [ authenticate, limiter(10, 60 * 1000) ], removeById);
 
-export { router as biblesChaptersRouter };
+export { router as biblesBooksRouter };

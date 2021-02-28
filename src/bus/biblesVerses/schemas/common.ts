@@ -23,6 +23,14 @@ export const common: BiblesVersesCommonSchemeType = {
     chapter: {
       type: "string",
       minLength: 3
+    },
+    book: {
+      type: "string",
+      minLength: 3
+    },
+    bibleId: {
+      type: "string",
+      minLength: 3
     }
   },
   additionalProperties: false,

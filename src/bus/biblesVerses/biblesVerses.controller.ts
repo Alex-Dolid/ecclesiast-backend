@@ -1,7 +1,9 @@
 // Controllers
-import { BiblesVersesModel, IBiblesVersesModel } from "./biblesVerses.model";
+import { BiblesVersesModel, IBiblesVersesModel, BiblesVersesQueryParamsForGetByQueryFuncType } from "./biblesVerses.model";
 // Types
 import { BibleVerseType } from "./biblesVerses.odm";
+
+type BiblesVersesQueryParamsType = BiblesVersesQueryParamsForGetByQueryFuncType & { isTranslate?: boolean }
 
 interface IBiblesVersesController {
   create: (payload: BibleVerseType) => Promise<BibleVerseType>;
@@ -9,6 +11,7 @@ interface IBiblesVersesController {
   getById: (_id: string) => Promise<BibleVerseType>;
   updateById: (_id: string, payload: Partial<BibleVerseType>) => Promise<BibleVerseType>;
   removeById: (_id: string) => Promise<BibleVerseType>;
+  getByQuery: (queryParams: BiblesVersesQueryParamsType) => Promise<BibleVerseType[]>;
 }
 
 type BiblesVersesControllerModelsType = {
@@ -42,5 +45,30 @@ export class BiblesVersesController implements IBiblesVersesController {
 
   async removeById(_id: string): Promise<BibleVerseType> {
     return await this.models.verses.removeById(_id);
+  }
+
+  async getByQuery(_queryParams: BiblesVersesQueryParamsType): Promise<(BibleVerseType & { translations: []})[]> {
+    const queryParams = { ..._queryParams };
+    const isTranslate = !!queryParams.isTranslate;
+
+    delete queryParams.isTranslate;
+
+    const results: BibleVerseType[] = [];
+    const data = await this.models.verses.getByQuery(queryParams);
+
+    if (isTranslate) {
+      const copyData = [ ...data ];
+      for (const verse of copyData) {
+        /* verse.translations = await this.models.verses.getByQuery({
+          bibleId: verse.bibleId,
+          chapter: "",
+          text: ""
+        }); */ // TODO доробити і зробити переклади
+
+        results.push(verse);
+      }
+    }
+
+    return results;
   }
 }
