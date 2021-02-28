@@ -11,7 +11,7 @@ import { commonSchema, createSchema } from "../schemas";
 const router = express.Router();
 
 router.get("/", [ limiter(10, 60 * 1000) ], get);
-router.post("/", [ authenticate, limiter(10, 60 * 1000), validator(createSchema) ], post);
+router.post("/", [ limiter(10, 60 * 1000), validator(createSchema) ], post);
 
 router.get("/:_id", [ authenticate, limiter(10, 60 * 1000) ], getById);
 router.put("/:_id", [ authenticate, limiter(10, 60 * 1000), validator(commonSchema) ], updateById);

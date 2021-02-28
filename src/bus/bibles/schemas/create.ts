@@ -1,11 +1,9 @@
 // Types
-import { JSONSchemaType } from "ajv";
-import { BibleType } from "../bibles.odm";
+import { BiblesCommonSchemeType } from "./types";
 // Schemas
 import { common } from "./common";
 
-
-export const create: JSONSchemaType<BibleType & { locale: string }> = {
+export const create: BiblesCommonSchemeType = {
   ...common,
-  required: [ "name", "locale", "author", "books" ]
+  required: [ "name", "locale", "author" ]
 };

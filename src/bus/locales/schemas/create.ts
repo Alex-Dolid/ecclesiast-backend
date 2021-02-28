@@ -1,10 +1,9 @@
 // Types
-import { JSONSchemaType } from "ajv";
-import { LocaleType } from "../locales.odm";
+import { LocalesCommonSchemeType } from "./types";
 // Schemas
 import { common } from "./common";
 
-export const create: JSONSchemaType<LocaleType> = {
+export const create: LocalesCommonSchemeType = {
   ...common,
   required: [ "code2", "code3", "name" ]
 };

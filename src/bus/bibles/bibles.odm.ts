@@ -2,9 +2,9 @@
 import * as mongoose from "mongoose";
 // Types
 import { Document, Schema } from "mongoose";
-import { BibleBooksType } from "./types";
 // Odm
 import { LocalesOdm, LocaleType } from "../locales";
+import { BiblesVersesOdm, BibleVerseType } from "../biblesVerses";
 
 export type BibleType = {
   _id?: string,
@@ -12,7 +12,7 @@ export type BibleType = {
   name: string,
   translators?: string[],
   edition?: string,
-  books: BibleBooksType,
+  verses?: BibleVerseType[],
   src?: string,
   locale: LocaleType
 }
@@ -39,25 +39,14 @@ const BibleSchema: Schema = new mongoose.Schema(
     src: {
       type: String
     },
-    books: [
-      {
-        name: String,
-        chapters: [
-          {
-            name: Number,
-            verses: [
-              {
-                name: Number,
-                text: String
-              }
-            ]
-          }
-        ]
-      }
-    ],
+    verses: {
+      type: Schema.Types.ObjectId,
+      ref: BiblesVersesOdm
+    },
     locale: {
       type: Schema.Types.ObjectId,
-      ref: LocalesOdm
+      ref: LocalesOdm,
+      required: true
     }
   },
   { timestamps: { createdAt: "created", updatedAt: "modified" } }

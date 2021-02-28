@@ -1,8 +1,7 @@
 // Types
-import { JSONSchemaType } from "ajv";
-import { BibleType } from "../bibles.odm";
+import { BiblesCommonSchemeType } from "./types";
 
-export const common: JSONSchemaType<BibleType & { locale: string }> = {
+export const common: BiblesCommonSchemeType = {
   type: "object",
   properties: {
     _id: {
@@ -15,11 +14,11 @@ export const common: JSONSchemaType<BibleType & { locale: string }> = {
     },
     author: {
       type: "string",
-      minLength: 3
+      minLength: 2
     },
     edition: {
       type: "string",
-      minLength: 3,
+      minLength: 2,
       nullable: true
     },
     translators: {
@@ -33,50 +32,10 @@ export const common: JSONSchemaType<BibleType & { locale: string }> = {
       type: "string",
       nullable: true
     },
-    books: {
+    verses: {
       type: "array",
       items: {
-        type: "object",
-        properties: {
-          name: {
-            type: "string",
-            minLength: 3
-          },
-          chapters: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                name: {
-                  type: "number",
-                  minimum: 1
-                },
-                verses: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      name: {
-                        type: "number",
-                        minimum: 1
-                      },
-                      text: {
-                        type: "string",
-                        minLength: 3
-                      }
-                    },
-                    additionalProperties: false,
-                    required: [ "name", "text" ]
-                  }
-                }
-              },
-              additionalProperties: false,
-              required: [ "name", "verses" ]
-            }
-          }
-        },
-        additionalProperties: false,
-        required: [ "name", "chapters" ]
+        type: "string"
       }
     },
     locale: {

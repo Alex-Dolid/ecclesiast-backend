@@ -5,11 +5,19 @@ import Ajv, { ValidateFunction, JSONSchemaType } from "ajv";
 // Utils
 import { ValidationError } from "./errors";
 // Types
-import { LocaleType } from "../bus/locales";
-import { BibleType } from "../bus/bibles";
+import { LocalesSchemasType } from "../bus/locales";
+import { BiblesSchemasType } from "../bus/bibles";
+import { BiblesVersesSchemesType } from "../bus/biblesVerses";
+import { BiblesChaptersSchemasType } from "../bus/biblesChapters";
+import { BiblesBooksSchemasType } from "../bus/biblesBooks/schemas/types";
 
 export const validator = (
-  schema: JSONSchemaType<object | LocaleType | BibleType & { locale: string }>
+  schema: JSONSchemaType<object>
+    | LocalesSchemasType
+    | BiblesSchemasType
+    | BiblesVersesSchemesType
+    | BiblesChaptersSchemasType
+    | BiblesBooksSchemasType
 ) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     const ajv = new Ajv({ allErrors: true });

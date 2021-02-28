@@ -3,11 +3,20 @@ import { BiblesModel, IBiblesModel } from "./bibles.model";
 // Types
 import { BibleType } from "./bibles.odm";
 
+interface IBiblesController {
+  create: (payload: BibleType) => Promise<BibleType>;
+  getAll: () => Promise<BibleType[]>;
+  getById: (_id: string) => Promise<BibleType>;
+  updateById: (_id: string, payload: Partial<BibleType>) => Promise<BibleType>;
+  removeById: (_id: string) => Promise<BibleType>;
+  getBiblesFragments: (q: string) => Promise<void>
+}
+
 type BiblesControllerModelsType = {
   bibles: IBiblesModel
 }
 
-export class BiblesController implements IBiblesModel {
+export class BiblesController implements IBiblesController {
   private readonly models: BiblesControllerModelsType;
 
   constructor() {
@@ -34,5 +43,9 @@ export class BiblesController implements IBiblesModel {
 
   async removeById(_id: string): Promise<BibleType> {
     return await this.models.bibles.removeById(_id);
+  }
+
+  async getBiblesFragments(q: string): Promise<void> {
+    // TODO
   }
 }

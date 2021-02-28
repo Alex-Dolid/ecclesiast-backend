@@ -1,22 +1,26 @@
 // Types
-import { LocalesCommonSchemeType } from "./types";
+import { BiblesVersesCommonSchemeType } from "./types";
 
-export const common: LocalesCommonSchemeType = {
+export const common: BiblesVersesCommonSchemeType = {
   type: "object",
   properties: {
     _id: {
       type: "string",
       nullable: true
     },
-    code2: {
-      type: "string",
-      minLength: 2
+    name: {
+      type: "number",
+      minimum: 1
     },
-    code3: {
+    text: {
       type: "string",
       minLength: 3
     },
-    name: {
+    locale: {
+      type: "string",
+      minLength: 3
+    },
+    chapter: {
       type: "string",
       minLength: 3
     }

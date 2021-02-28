@@ -1,1 +1,0 @@
-export { BibleBooksType } from "./bible";

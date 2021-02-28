@@ -3,17 +3,16 @@ import { NextFunction, Request, Response } from "express";
 // Libs
 import dg from "debug";
 // Instruments
-import { BiblesController } from "../../bibles.controller";
+import { BiblesVersesController } from "../../biblesVerses.controller";
 
-const debug = dg("router:bibles:hash");
+const debug = dg("router:biblesVerses:hash");
 
 export const getById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   debug(`${ req.method } - ${ req.originalUrl }`);
 
   try {
     const { _id } = req.params;
-    const { q } = req.query;
-    const controller = new BiblesController();
+    const controller = new BiblesVersesController();
     const data = await controller.getById(_id);
 
     res.status(200).json(data);
@@ -28,7 +27,7 @@ export const updateById = async (req: Request, res: Response, next: NextFunction
   try {
     const { _id } = req.params;
     const payload = req.body;
-    const controller = new BiblesController();
+    const controller = new BiblesVersesController();
     const data = await controller.updateById(_id, payload);
 
     res.status(200).json(data);
@@ -42,7 +41,7 @@ export const removeById = async (req: Request, res: Response, next: NextFunction
 
   try {
     const { _id } = req.params;
-    const controller = new BiblesController();
+    const controller = new BiblesVersesController();
     const data = await controller.removeById(_id);
 
     res.status(200).json(data);
