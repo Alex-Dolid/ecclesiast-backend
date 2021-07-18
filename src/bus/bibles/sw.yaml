@@ -1,0 +1,21 @@
+components:
+  schemas:
+    Bibles:
+      type: array
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+          author:
+            type: string
+          name:
+            type: string
+          translators:
+            type: array
+            items:
+              type: string
+          edition:
+            type: string
+          src:
+            type: string

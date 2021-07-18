@@ -3,8 +3,12 @@ import * as express from "express";
 import { Request, Response, Application, NextFunction } from "express";
 // Libs
 import * as cors from "cors";
+import * as swaggerUi from "swagger-ui-express";
+import * as swaggerJsdoc from "swagger-jsdoc";
 // Instruments
 import { errorLogger, logger, NotFoundError, notFoundLogger, validationLogger } from "./utils";
+import { swaggerOptions } from "./init";
+import config from "./config";
 // Routes
 import { locales, bibles, biblesBooks, biblesChapters, biblesVerses } from "./routers";
 // Types
@@ -35,6 +39,12 @@ app.use("/bibles", bibles);
 app.use("/bibles-books", biblesBooks);
 app.use("/bibles-chapters", biblesChapters);
 app.use("/bibles-verses", biblesVerses);
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+if (config.swagger.access === "true") {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+}
 
 app.use("*", (req, res, next) => {
   const error = new NotFoundError(

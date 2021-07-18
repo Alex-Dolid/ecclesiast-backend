@@ -10,6 +10,21 @@ import { commonSchema, createSchema } from "../schemas";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /bibles:
+ *  get:
+ *    tags:
+ *      - Bibles
+ *    summary: Get all bibles
+ *    responses:
+ *      '200':
+ *        description: Get all bibles data success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Bibles'
+ */
 router.get("/", [ limiter(10, 60 * 1000) ], get);
 router.post("/", [ limiter(10, 60 * 1000), validator(createSchema) ], post);
 
