@@ -47,7 +47,7 @@ export class BiblesVersesController implements IBiblesVersesController {
     return await this.models.verses.removeById(_id);
   }
 
-  async getByQuery(_queryParams: BiblesVersesQueryParamsType): Promise<(BibleVerseType & { translations: []})[]> {
+  async getByQuery(_queryParams: BiblesVersesQueryParamsType): Promise<BibleVerseType[]> {
     const queryParams = { ..._queryParams };
     const isTranslate = !!queryParams.isTranslate;
 

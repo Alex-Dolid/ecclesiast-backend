@@ -12,7 +12,7 @@ export type BibleType = {
   name: string,
   translators?: string[],
   edition?: string,
-  verses?: BibleVerseType[],
+  verses: BibleVerseType[],
   src?: string,
   locale: LocaleType
 }
