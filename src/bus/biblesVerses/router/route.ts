@@ -13,14 +13,12 @@ export const get = async (req: Request, res: Response, next: NextFunction): Prom
   debug(`${ req.method } - ${ req.originalUrl }`);
 
   try {
-    const query = {
+    const controller = new BiblesVersesController();
+    const data = !isEmptyObj(req.query) ? await controller.getByQuery({
       ...req.query,
       bibleId: req.query.bibleId?.toString() || "",
       text: req.query.text?.toString() || ""
-    };
-
-    const controller = new BiblesVersesController();
-    const data = !isEmptyObj(query) ? await controller.getByQuery(query) : await controller.getAll();
+    }) : await controller.getAll();
 
     res.status(200).json(data);
   } catch (error) {
