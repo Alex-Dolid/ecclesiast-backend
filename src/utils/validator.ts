@@ -9,7 +9,7 @@ import { LocalesSchemasType } from "../bus/locales";
 import { BiblesSchemasType } from "../bus/bibles";
 import { BiblesVersesSchemesType } from "../bus/biblesVerses";
 import { BiblesChaptersSchemasType } from "../bus/biblesChapters";
-import { BiblesBooksSchemasType } from "../bus/biblesBooks/schemas/types";
+import { BiblesBooksSchemasType } from "../bus/biblesBooks";
 
 export const validator = (
   schema: JSONSchemaType<object>
